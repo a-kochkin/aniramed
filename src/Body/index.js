@@ -33,7 +33,7 @@ const Body = () => {
 
   const BASE_PARAMS = {
     status: 'released',
-    score: '8',
+    score: '7',
     kind: 'tv'
   }
 
