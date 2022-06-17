@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import AsyncSelect from 'react-select/async'
+import React from 'react';
+import AsyncSelect from 'react-select/async';
 import {Flex, Button} from '@chakra-ui/react';
-import s from './guess.module.scss'
+import s from './guess.module.scss';
 
 
 const Guess = ({loadOptions, guess, selected, setSelected}) => {

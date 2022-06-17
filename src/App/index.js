@@ -1,7 +1,7 @@
 import React from 'react';
-import {ChakraProvider} from "@chakra-ui/react"
+import {ChakraProvider} from '@chakra-ui/react';
 import Body from '../Body';
-import s from './app.module.scss'
+import s from './app.module.scss';
 
 const App = () => (
   <ChakraProvider>

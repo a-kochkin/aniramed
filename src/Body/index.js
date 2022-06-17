@@ -8,7 +8,7 @@ import FramesButtons from '../FramesButtons';
 import Guesses from '../Guesses';
 
 const shuffle = array => {
-  let currentIndex = array.length,  randomIndex;
+  let currentIndex = array.length, randomIndex;
 
   while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
@@ -35,7 +35,7 @@ const Body = () => {
     status: 'released',
     score: '7',
     kind: 'tv'
-  }
+  };
 
   const listParams = new URLSearchParams({
     ...BASE_PARAMS,

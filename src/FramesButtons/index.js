@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Flex} from '@chakra-ui/react';
-import s from './framesNumbers.module.scss'
+import s from './framesNumbers.module.scss';
 
 const Header = ({framesNumbers, setFrameNumber, currentFrameNumber, totalGuesses}) => (
   <Flex className={s.container}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import {OrderedList, ListItem} from '@chakra-ui/react';
-import s from './guesses.module.scss'
+import s from './guesses.module.scss';
 
 const Header = ({guesses, anime}) => (
   <OrderedList className={s.container}>
@@ -11,7 +11,7 @@ const Header = ({guesses, anime}) => (
             <ListItem color={'red.500'}>
               {'Skipped'}
             </ListItem>
-          )
+          );
         }
 
         return (
