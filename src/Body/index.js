@@ -3,20 +3,17 @@ import s from './body.module.scss';
 import {Flex} from '@chakra-ui/react';
 import Header from '../Header';
 import Frame from '../Frame';
-import FrameButton from '../FrameButton';
 import Guess from '../Guess';
+import FramesButtons from '../FramesButtons';
+import Guesses from '../Guesses';
 
 const shuffle = array => {
   let currentIndex = array.length,  randomIndex;
 
-  // While there remain elements to shuffle.
-  while (currentIndex != 0) {
-
-    // Pick a remaining element.
+  while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
 
-    // And swap it with the current element.
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex], array[currentIndex]];
   }
@@ -37,7 +34,7 @@ const Body = () => {
   const BASE_PARAMS = {
     status: 'released',
     score: '8',
-    kind: 'movie'
+    kind: 'tv'
   }
 
   const listParams = new URLSearchParams({
@@ -55,6 +52,7 @@ const Body = () => {
   const [frameNumber, setFrameNumber] = useState(1);
   const [selected, setSelected] = useState();
   const [totalGuesses, setTotalGuesses] = useState(1);
+  const [guesses, setGuesses] = useState([]);
 
   const fetchData = async() => {
     setFrameNumber(1);
@@ -62,6 +60,7 @@ const Body = () => {
     setSelected(null);
     setAnime({});
     setScreenshots([]);
+    setGuesses([]);
 
     const listResponse = await fetch(`${API_URI}?${listParams}`, {headers});
 
@@ -95,16 +94,22 @@ const Body = () => {
   };
 
   const guess = () => {
+    if (totalGuesses > MAX_GUESSES) {
+      return;
+    }
+
     if (selected?.value === anime.id) {
       alert('Guessed');
-      setTotalGuesses(MAX_GUESSES);
+      setTotalGuesses(MAX_GUESSES + 1);
     } else if (totalGuesses === MAX_GUESSES) {
       alert(`${anime.russian} / ${anime.name}`);
+      setTotalGuesses(MAX_GUESSES + 1);
     } else {
       setTotalGuesses(totalGuesses + 1);
       setFrameNumber(totalGuesses + 1);
     }
 
+    setGuesses([...guesses, selected]);
     setSelected(null);
   };
 
@@ -119,24 +124,21 @@ const Body = () => {
     <Flex className={s.container}>
       <Header fetchData={fetchData} />
       <Frame src={`${BASE_URI}${screenshots[frameNumber - 1]?.original}`} />
-      <Flex className={s.buttons}>
-        {
-          [1, 2, 3, 4, 5, 6].map((frameNum) => (
-            <FrameButton
-              key={frameNum}
-              frameNumber={frameNum}
-              isCurrent={frameNumber === frameNum}
-              setFrameNumber={(number) => setFrameNumber(number)}
-              isDisabled={totalGuesses < frameNum}
-            />
-          ))
-        }
-      </Flex>
+      <FramesButtons
+        framesNumbers={[1, 2, 3, 4, 5, 6]}
+        setFrameNumber={setFrameNumber}
+        currentFrameNumber={frameNumber}
+        totalGuesses={totalGuesses}
+      />
       <Guess
         selected={selected}
         setSelected={setSelected}
         guess={guess}
         loadOptions={loadOptions}
+      />
+      <Guesses
+        guesses={guesses}
+        anime={anime}
       />
     </Flex>
   );
