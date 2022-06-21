@@ -28,7 +28,7 @@ const Body = () => {
 
   const headers = {
     'User-Agent': 'Api Test',
-    'Authorization': 'Bearer fvivAW9owzoQ2h5pZgVU2uIaUYb9HL31AQOGdTDrvN0'
+    'Authorization': 'Bearer 8j3NERg9WrYbKUCfQtWTPV22ZR64xbRyTm0Fz3dMAdM'
   };
 
   const BASE_PARAMS = {
