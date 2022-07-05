@@ -28,13 +28,15 @@ const Body = () => {
 
   const headers = {
     'User-Agent': 'Api Test',
-    'Authorization': 'Bearer 8j3NERg9WrYbKUCfQtWTPV22ZR64xbRyTm0Fz3dMAdM'
+    'Authorization': 'Bearer 4dnhN91oSiWhw_8pE2AUIW-r9lg4B7YOgrNDFeGgZ90'
   };
 
   const BASE_PARAMS = {
     status: 'released',
     score: '7',
-    kind: 'tv'
+    kind: 'tv',
+    season: '2010_2022',
+    censored: false
   };
 
   const listParams = new URLSearchParams({
@@ -62,19 +64,27 @@ const Body = () => {
     setScreenshots([]);
     setGuesses([]);
 
-    const listResponse = await fetch(`${API_URI}?${listParams}`, {headers});
+    try {
+      const listResponse = await fetch(`${API_URI}?${listParams}`, {headers});
 
-    const [animeData] = await listResponse.json();
+      const [animeData] = await listResponse.json();
 
-    setAnime(animeData);
+      setAnime(animeData);
 
-    const screenshotsResponse = await fetch(`${API_URI}${animeData.id}/screenshots`, {
-      headers
-    });
+      const screenshotsResponse = await fetch(`${API_URI}${animeData.id}/screenshots`, {
+        headers
+      });
 
-    const screenshotsData = await screenshotsResponse.json();
+      const screenshotsData = await screenshotsResponse.json();
 
-    setScreenshots(shuffle(screenshotsData));
+      if (screenshotsData.length < 6) {
+        fetchData();
+      } else {
+        setScreenshots(shuffle(screenshotsData));
+      }
+    } catch(_) {
+      fetchData();
+    }
   };
 
   const loadOptions = async(inputValue) => {
