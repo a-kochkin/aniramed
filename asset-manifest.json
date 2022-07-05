@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/aniramed/static/css/main.6f25ae40.css",
-    "main.js": "/aniramed/static/js/main.82938059.js",
+    "main.js": "/aniramed/static/js/main.f541c9c1.js",
     "index.html": "/aniramed/index.html",
     "main.6f25ae40.css.map": "/aniramed/static/css/main.6f25ae40.css.map",
-    "main.82938059.js.map": "/aniramed/static/js/main.82938059.js.map"
+    "main.f541c9c1.js.map": "/aniramed/static/js/main.f541c9c1.js.map"
   },
   "entrypoints": [
     "static/css/main.6f25ae40.css",
-    "static/js/main.82938059.js"
+    "static/js/main.f541c9c1.js"
   ]
 }
