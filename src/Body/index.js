@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import s from './body.module.scss';
 import {Flex} from '@chakra-ui/react';
+import s from './body.module.scss';
 import Header from '../Header';
 import Frame from '../Frame';
 import Guess from '../Guess';
@@ -57,6 +57,7 @@ const Body = () => {
   const [guesses, setGuesses] = useState([]);
 
   const fetchData = async() => {
+    console.log('fetch');
     setFrameNumber(1);
     setTotalGuesses(1);
     setSelected(null);
@@ -64,27 +65,19 @@ const Body = () => {
     setScreenshots([]);
     setGuesses([]);
 
-    try {
-      const listResponse = await fetch(`${API_URI}?${listParams}`, {headers});
+    const listResponse = await fetch(`${API_URI}?${listParams}`, {headers});
 
-      const [animeData] = await listResponse.json();
+    const [animeData] = await listResponse.json();
 
-      setAnime(animeData);
+    setAnime(animeData);
 
-      const screenshotsResponse = await fetch(`${API_URI}${animeData.id}/screenshots`, {
-        headers
-      });
+    const screenshotsResponse = await fetch(`${API_URI}${animeData.id}/screenshots`, {
+      headers
+    });
 
-      const screenshotsData = await screenshotsResponse.json();
+    const screenshotsData = await screenshotsResponse.json();
 
-      if (screenshotsData.length < 6) {
-        fetchData();
-      } else {
-        setScreenshots(shuffle(screenshotsData));
-      }
-    } catch(_) {
-      fetchData();
-    }
+    setScreenshots(shuffle(screenshotsData));
   };
 
   const loadOptions = async(inputValue) => {
